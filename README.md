@@ -218,7 +218,7 @@ Welcome to my professional data science project portfolio. This repository prese
 
 #### [11.2 AI Chat App with Memory](./11_Generative_AI/AI_Assistant_Docker_App/)
 
-**Summary:** Built a production-ready AI chat application using Docker, Streamlit, and LangChain, enabling seamless switching between a local LLM (Llama 3.2) and a cloud-based model (Llama 3.3 70B via OpenRouter) with full conversation history retention. Last updated: August 18, 2025.
+**Summary:** Built a production-ready AI chat application using Docker, Streamlit, and LangChain, enabling seamless switching between a local LLM (gemma3) and a cloud-based model (openai/gpt-oss-20b via OpenRouter) with full conversation history retention. Last updated: November 20, 2025.
 
 🔹 **Key features**:
 
