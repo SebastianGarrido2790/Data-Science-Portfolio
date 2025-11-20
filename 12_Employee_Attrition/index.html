@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Attrition Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Attrition Prediction</h1>
+        <form id="predictForm">
+            <label for="Age">Age:</label>
+            <input type="number" id="Age" name="Age" value="35" required>
+
+            <label for="DailyRate">Daily Rate:</label>
+            <input type="number" id="DailyRate" name="DailyRate" value="1000" required>
+
+            <label for="DistanceFromHome">Distance From Home:</label>
+            <input type="number" id="DistanceFromHome" name="DistanceFromHome" value="5" required>
+
+            <label for="Education">Education (1-5):</label>
+            <input type="number" id="Education" name="Education" value="3" min="1" max="5" required>
+
+            <label for="EmployeeNumber">Employee Number:</label>
+            <input type="number" id="EmployeeNumber" name="EmployeeNumber" value="1001" required>
+
+            <label for="EnvironmentSatisfaction">Environment Satisfaction (1-4):</label>
+            <input type="number" id="EnvironmentSatisfaction" name="EnvironmentSatisfaction" value="3" min="1" max="4" required>
+
+            <label for="HourlyRate">Hourly Rate:</label>
+            <input type="number" id="HourlyRate" name="HourlyRate" value="50" required>
+
+            <label for="JobInvolvement">Job Involvement (1-4):</label>
+            <input type="number" id="JobInvolvement" name="JobInvolvement" value="3" min="1" max="4" required>
+
+            <label for="JobLevel">Job Level (1-5):</label>
+            <input type="number" id="JobLevel" name="JobLevel" value="2" min="1" max="5" required>
+
+            <label for="JobSatisfaction">Job Satisfaction (1-4):</label>
+            <input type="number" id="JobSatisfaction" name="JobSatisfaction" value="4" min="1" max="4" required>
+
+            <label for="MonthlyIncome">Monthly Income:</label>
+            <input type="number" id="MonthlyIncome" name="MonthlyIncome" value="5000" required>
+
+            <label for="MonthlyRate">Monthly Rate:</label>
+            <input type="number" id="MonthlyRate" name="MonthlyRate" value="12000" required>
+
+            <label for="NumCompaniesWorked">Number of Companies Worked:</label>
+            <input type="number" id="NumCompaniesWorked" name="NumCompaniesWorked" value="2" required>
+
+            <label for="PercentSalaryHike">Percent Salary Hike:</label>
+            <input type="number" id="PercentSalaryHike" name="PercentSalaryHike" value="10" required>
+
+            <label for="PerformanceRating">Performance Rating (1-5):</label>
+            <input type="number" id="PerformanceRating" name="PerformanceRating" value="3" min="1" max="5" required>
+
+            <label for="RelationshipSatisfaction">Relationship Satisfaction (1-4):</label>
+            <input type="number" id="RelationshipSatisfaction" name="RelationshipSatisfaction" value="3" min="1" max="4" required>
+
+            <label for="StockOptionLevel">Stock Option Level (0-3):</label>
+            <input type="number" id="StockOptionLevel" name="StockOptionLevel" value="1" min="0" max="3" required>
+
+            <label for="TotalWorkingYears">Total Working Years:</label>
+            <input type="number" id="TotalWorkingYears" name="TotalWorkingYears" value="10" required>
+
+            <label for="TrainingTimesLastYear">Training Times Last Year:</label>
+            <input type="number" id="TrainingTimesLastYear" name="TrainingTimesLastYear" value="2" required>
+
+            <label for="WorkLifeBalance">Work-Life Balance (1-4):</label>
+            <input type="number" id="WorkLifeBalance" name="WorkLifeBalance" value="3" min="1" max="4" required>
+
+            <label for="YearsAtCompany">Years At Company:</label>
+            <input type="number" id="YearsAtCompany" name="YearsAtCompany" value="5" required>
+
+            <label for="YearsInCurrentRole">Years In Current Role:</label>
+            <input type="number" id="YearsInCurrentRole" name="YearsInCurrentRole" value="3" required>
+
+            <label for="YearsSinceLastPromotion">Years Since Last Promotion:</label>
+            <input type="number" id="YearsSinceLastPromotion" name="YearsSinceLastPromotion" value="2" required>
+
+            <label for="YearsWithCurrManager">Years With Current Manager:</label>
+            <input type="number" id="YearsWithCurrManager" name="YearsWithCurrManager" value="2" required>
+
+            <label for="BusinessTravel">Business Travel:</label>
+            <select id="BusinessTravel" name="BusinessTravel">
+                <option value="Travel_Rarely">Travel Rarely</option>
+                <option value="Travel_Frequently">Travel Frequently</option>
+                <option value="Non_Travel">Non-Travel</option>
+            </select>
+
+            <label for="Department">Department:</label>
+            <select id="Department" name="Department">
+                <option value="Research_&_Development">Research & Development</option>
+                <option value="Sales">Sales</option>
+                <option value="Human_Resources">Human Resources</option>
+            </select>
+
+            <label for="EducationField">Education Field:</label>
+            <select id="EducationField" name="EducationField">
+                <option value="Life_Sciences">Life Sciences</option>
+                <option value="Medical">Medical</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Technical_Degree">Technical Degree</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="Gender">Gender:</label>
+            <select id="Gender" name="Gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label for="JobRole">Job Role:</label>
+            <select id="JobRole" name="JobRole">
+                <option value="Research_Scientist">Research Scientist</option>
+                <option value="Laboratory_Technician">Laboratory Technician</option>
+                <option value="Manufacturing_Director">Manufacturing Director</option>
+                <option value="Sales_Executive">Sales Executive</option>
+                <option value="Manager">Manager</option>
+            </select>
+
+            <label for="MaritalStatus">Marital Status:</label>
+            <select id="MaritalStatus" name="MaritalStatus">
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+            </select>
+
+            <label for="OverTime">OverTime:</label>
+            <select id="OverTime" name="OverTime">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                document.getElementById('result').innerHTML = `
+                    <h3>Prediction Result</h3>
+                    <p><strong>Employee Number:</strong> ${result.EmployeeNumber}</p>
+                    <p><strong>Attrition Probability:</strong> ${(result.Attrition_Probability * 100).toFixed(2)}%</p>
+                    <p><strong>Attrition Prediction:</strong> ${result.Attrition_Prediction === 1 ? 'Yes' : 'No'}</p>
+                `;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

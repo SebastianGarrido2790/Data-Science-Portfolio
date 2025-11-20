@@ -1,0 +1,14 @@
+FROM python:3.9
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y build-essential
+RUN pip install uv
+
+COPY pyproject.toml uv.lock .
+RUN uv sync
+
+COPY src/models/predict_model.py .  
+COPY models/scaler.pkl /app/models/scaler.pkl
+
+CMD ["python", "predict_model.py"]

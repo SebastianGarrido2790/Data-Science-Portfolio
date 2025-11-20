@@ -1,0 +1,5 @@
+text,sentiment,probability_positive,threshold
+I like this product!,positive,0.9658180475234985,0.95
+This is not the best.,negative,0.5539010763168335,0.95
+I love this product!,positive,0.9709041714668274,0.5
+This is terrible.,negative,0.1384047567844391,0.5

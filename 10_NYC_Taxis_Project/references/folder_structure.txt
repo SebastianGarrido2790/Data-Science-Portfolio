@@ -1,0 +1,71 @@
+├── LICENSE
+├── README.md          <- The top-level README for developers using this project.
+├── .env               <- Environmental variable for APIs.
+├── data
+│   ├── external       <- Data from third party sources.
+│   ├── interim        <- Intermediate data that has been transformed.
+│   ├── processed      <- The final, canonical data sets for modeling.
+│   └── raw            <- The original, immutable data dump.
+│
+├── mlartifacts
+│
+├── mlruns
+│
+├── models             <- Trained and serialized models, model predictions, or model summaries
+│   ├── prophet_model.pkl
+│   ├── scaler.joblib
+│   └── xgboost_model.xgb
+│
+├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+│                         the creator's initials, and a short `-` delimited description, e.g.
+│                         `1.0-jqp-initial-data-exploration`.
+│
+├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+│
+├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   ├── figures        <- Generated graphics and figures to be used in reporting
+│   ├── project_steps
+│   │   ├── 00_project_overview.md
+│   │   ├── 01_business_understanding.md
+│   │   ├── 02_data_understanding.md
+│   │   ├── 03_eda.md
+│   │   ├── 04_data_preparation.md
+│   │   ├── 05_modeling.md
+│   │   ├── 06_evaluation.md
+│   │   └── 07_deployment.md 
+│   ├── dashboard_metrics.html
+│   ├── dashboard_segment.html
+│   ├── deployment.md
+│   ├── eda_findings.txt
+│   ├── feature_engineering.md
+│   ├── go_no_go_report.txt
+│   ├── onnx_debug.md
+│   └── shap_analysis.md
+│
+├── requirements.txt   <- The requirements file for reproducing the analysis environment.
+│
+├── src                <- Source code for use in this project.
+│   ├── __init__.py    <- Makes src a Python module
+│   │
+│   ├── data           <- Scripts to download or generate data.
+│   │   ├── 01_data_inventory.py
+│   │   ├── 02_data_quality_assessment.py
+│   │   └── 03_data_governance.py
+│   │
+│   ├── models         <- Scripts to train models and then use trained models to make predictions.
+│   │   ├── batch-scoring_system
+│   │   │   ├── 01_feature_pipeline.py
+│   │   │   ├── 02_training_pipeline.py
+│   │   │   └── 03_inference_pipeline.py
+│   │   ├── evaluation
+│   │   │   ├── 01_performance_metrics.py
+│   │   │   ├── 02_advanced_error_analysis.py
+│   │   │   ├── 03_business_validation.py
+│   │   │   └── 04_go_no_go_decision.py
+│   │   └── dashboard.py
+│   │
+│   └── visualization  <- Scripts to create exploratory and results oriented visualizations.
+│       └── eda.py
+│
+├── pyproject.toml
+├── uv.lock

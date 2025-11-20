@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/sebas/Documents/Data_Science/Portfolio/Data-Science-Portfolio/12_Employee_Attrition/src/features/mlruns/466656167999582602/12bdf6c4485e409b9d92a29f959d0090/artifacts
+end_time: 1747281315463
+entry_point_name: ''
+experiment_id: '466656167999582602'
+lifecycle_stage: active
+run_id: 12bdf6c4485e409b9d92a29f959d0090
+run_name: RandomForest
+run_uuid: 12bdf6c4485e409b9d92a29f959d0090
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747281206547
+status: 3
+tags: []
+user_id: sebas
