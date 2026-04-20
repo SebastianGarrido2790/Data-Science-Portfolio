@@ -1,0 +1,66 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Secrets & Configuration (CRITICAL)
+# Note: GOOGLE_API_KEY required for the LangGraph Agentic UI (Gemini-2.5-flash)
+# must be injected via docker-compose environment since .env is ignored.
+.env
+.env.test
+.env.local
+config/secret*.yaml
+
+# Project Specific Data & Logs
+data/
+logs/
+mlruns/
+mlflow.db
+notebooks/
+.ipynb_checkpoints/
+reports/docs/
+
+# DVC (Data Version Control)
+.dvc/
+.dvcignore
+
+# Agents & Scripts
+.agents/
+AGENTS.md
+launch_app.bat
+launch_*.bat
+
+# Docker (Prevent recursive inclusion)
+docker-compose.yml
+docker/
+.dockerignore

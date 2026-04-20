@@ -1,0 +1,229 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m src.pipeline.stage_01_ingestion
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: a244de807dc0e84fc86a015ffdb75f26
+      size: 1564
+    - path: src/pipeline/stage_01_ingestion.py
+      hash: md5
+      md5: bdd74ea3bc5738995ce0ca761d080a11
+      size: 2067
+    outs:
+    - path: artifacts/data_ingestion/books.csv
+      hash: md5
+      md5: fb986e694176649505eec4a383b8a3eb
+      size: 4142211
+  data_transformation:
+    cmd: python -m src.pipeline.stage_05_transformation
+    deps:
+    - path: artifacts/tone_analysis/toned_books.csv
+      hash: md5
+      md5: 75c26d6ee8c972a1b52b97cb20f3aee9
+      size: 5139511
+    - path: config/schema.yaml
+      hash: md5
+      md5: fef271616b179a655584490503904321
+      size: 817
+    - path: src/pipeline/stage_05_transformation.py
+      hash: md5
+      md5: ebe4b71b4ed096683174a7ff9bf799b9
+      size: 2029
+    params:
+      config/params.yaml:
+        data_transformation.random_state: 42
+        data_transformation.test_size: 0.3
+        data_transformation.val_size: 0.5
+    outs:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: 2f6443b0a7d691f55def34888432ab63.dir
+      size: 5077176
+      nfiles: 3
+  data_validation:
+    cmd: python -m src.pipeline.stage_02_validation
+    deps:
+    - path: artifacts/data_ingestion/books.csv
+      hash: md5
+      md5: fb986e694176649505eec4a383b8a3eb
+      size: 4142211
+    - path: config/schema.yaml
+      hash: md5
+      md5: fef271616b179a655584490503904321
+      size: 817
+    - path: src/pipeline/stage_02_validation.py
+      hash: md5
+      md5: dbd7b4cf3855e69628cf088a80a242b4
+      size: 1999
+    params:
+      config/params.yaml:
+        data_validation.categories_min_len: 2
+        data_validation.min_desc_len: 20
+    outs:
+    - path: artifacts/data_validation/clean_books.csv
+      hash: md5
+      md5: 3be1612ee89b21eb11cceb2ed97fc088
+      size: 4113324
+  model_training:
+    cmd: python -m src.pipeline.stage_06_training
+    deps:
+    - path: artifacts/data_transformation/train.csv
+      hash: md5
+      md5: 512b6209686f9ecff25538448994e4ed
+      size: 3522096
+    - path: config/config.yaml
+      hash: md5
+      md5: a244de807dc0e84fc86a015ffdb75f26
+      size: 1564
+    - path: config/schema.yaml
+      hash: md5
+      md5: fef271616b179a655584490503904321
+      size: 817
+    - path: src/pipeline/stage_06_training.py
+      hash: md5
+      md5: 41fa51dcd9f71728e7c7b6af99964399
+      size: 2021
+    params:
+      config/params.yaml:
+        model_trainer.batch_size: 15
+        model_trainer.collection_name: books
+        model_trainer.model_name: sentence-transformers/all-MiniLM-L6-v2
+    outs:
+    - path: artifacts/model_trainer/vectordb
+      hash: md5
+      md5: 22984110b244a0022d3a5dbc1646660f.dir
+      size: 33069284
+      nfiles: 6
+  prediction:
+    cmd: python -m src.pipeline.stage_07_prediction
+    deps:
+    - path: artifacts/model_trainer/vectordb
+      hash: md5
+      md5: 120089493c73abc36213d91f8bf929d6.dir
+      size: 33069284
+      nfiles: 6
+    - path: artifacts/tone_analysis/toned_books.csv
+      hash: md5
+      md5: 75c26d6ee8c972a1b52b97cb20f3aee9
+      size: 5139511
+    - path: config/schema.yaml
+      hash: md5
+      md5: fef271616b179a655584490503904321
+      size: 817
+    - path: src/models/hybrid_recommender.py
+      hash: md5
+      md5: cc40d12b64b4c49a97ae9b09aa7c8953
+      size: 8741
+    - path: src/pipeline/stage_07_prediction.py
+      hash: md5
+      md5: d7f445468c7a88c046f26be88b3598e7
+      size: 2545
+    params:
+      config/params.yaml:
+        inference.filtered_search_boost: 10
+        inference.popularity_weight: 0.2
+        inference.top_k: 50
+    outs:
+    - path: artifacts/prediction/results.txt
+      hash: md5
+      md5: 2db9d84b384d5fa079e4462f20fe795a
+      size: 31827
+  model_evaluation:
+    cmd: python -m src.pipeline.stage_08_evaluation
+    deps:
+    - path: artifacts/data_transformation/test.csv
+      hash: md5
+      md5: aeb42606d6c2636836596e1f41b5b8fa
+      size: 779438
+    - path: artifacts/model_trainer/vectordb
+      hash: md5
+      md5: 120089493c73abc36213d91f8bf929d6.dir
+      size: 33069284
+      nfiles: 6
+    - path: config/config.yaml
+      hash: md5
+      md5: a244de807dc0e84fc86a015ffdb75f26
+      size: 1564
+    - path: src/pipeline/stage_08_evaluation.py
+      hash: md5
+      md5: aaca4ccaa9d5f1fec7a80bcc5bca576e
+      size: 1716
+    params:
+      config/params.yaml:
+        mlflow.experiment_name: Hybrid-Book-Recommender-System
+        mlflow.uri: 
+          https://dagshub.com/SebastianGarrido2790/hybrid-book-recommender.mlflow
+    outs:
+    - path: artifacts/model_evaluation/metrics.json
+      hash: md5
+      md5: 83d0a52485ac4f073f4bccbda6c7dc51
+      size: 35
+  data_enrichment:
+    cmd: python -m src.pipeline.stage_03_enrichment
+    deps:
+    - path: artifacts/data_validation/clean_books.csv
+      hash: md5
+      md5: 3be1612ee89b21eb11cceb2ed97fc088
+      size: 4113324
+    - path: config/schema.yaml
+      hash: md5
+      md5: fef271616b179a655584490503904321
+      size: 817
+    - path: src/pipeline/stage_03_enrichment.py
+      hash: md5
+      md5: 4a315fba9ebcb2b34696c1940ff98b36
+      size: 1416
+    params:
+      config/params.yaml:
+        data_enrichment.batch_size: 16
+        data_enrichment.candidate_labels:
+        - Fiction
+        - Non-Fiction
+        - Science
+        - History
+        - Biography
+        - Fantasy
+        - Thriller
+        data_enrichment.model_name: facebook/bart-large-mnli
+    outs:
+    - path: artifacts/data_enrichment/enriched_books.csv
+      hash: md5
+      md5: 93dd3f2cea8dcb2d5d0b1d5e34674559
+      size: 4178344
+  tone_analysis:
+    cmd: python -m src.pipeline.stage_04_tone_analysis
+    deps:
+    - path: artifacts/data_enrichment/enriched_books.csv
+      hash: md5
+      md5: 93dd3f2cea8dcb2d5d0b1d5e34674559
+      size: 4178344
+    - path: config/schema.yaml
+      hash: md5
+      md5: fef271616b179a655584490503904321
+      size: 817
+    - path: src/pipeline/stage_04_tone_analysis.py
+      hash: md5
+      md5: 30ae2099ab6c7d7dbc1722a6c423dbed
+      size: 1386
+    params:
+      config/params.yaml:
+        tone_analysis.batch_size: 32
+        tone_analysis.detection_threshold: 0.15
+        tone_analysis.max_sentences_per_book: 20
+        tone_analysis.min_sentence_len: 5
+        tone_analysis.model_name: j-hartmann/emotion-english-distilroberta-base
+        tone_analysis.target_emotions:
+        - anger
+        - disgust
+        - fear
+        - joy
+        - neutral
+        - sadness
+        - surprise
+    outs:
+    - path: artifacts/tone_analysis/toned_books.csv
+      hash: md5
+      md5: 75c26d6ee8c972a1b52b97cb20f3aee9
+      size: 5139511

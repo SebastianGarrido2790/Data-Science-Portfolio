@@ -1,0 +1,74 @@
+# Stores hyperparameters (ONLY tunable values).
+
+data_validation:
+  min_desc_len: 20  # Drop books with descriptions shorter than this
+  categories_min_len: 2
+
+data_transformation:
+  test_size: 0.30
+  val_size: 0.50     # 0.5 of 30% = 15% of total
+  random_state: 42
+
+model_trainer:
+  embedding_provider: huggingface  # Options: huggingface, gemini
+  model_name: sentence-transformers/all-MiniLM-L6-v2  # For Gemini use: models/embedding-001
+  collection_name: books
+  batch_size: 15  # Reduced from 64 to prevent 429 RESOURCE_EXHAUSTED errors
+
+inference:
+  # IMPORTANT: Model name and provider must match the ones used in 'model_trainer' 
+  # for semantic search to work correctly with existing indexes.
+  embedding_provider: huggingface
+  model_name: sentence-transformers/all-MiniLM-L6-v2
+  collection_name: books
+  top_k: 50
+  popularity_weight: 0.2
+  search_buffer_multiplier: 5  # Multiplier for initial vector search fetch to allow for post-filtering
+  filtered_search_boost: 10 # Additional boost for filtered queries to ensure enough candidates
+
+data_enrichment:
+  model_name: facebook/bart-large-mnli
+  candidate_labels: ["Fiction", "Non-Fiction", "Science", "History", "Biography", "Fantasy", "Thriller"]
+  batch_size: 16
+
+tone_analysis:
+  model_name: j-hartmann/emotion-english-distilroberta-base
+  batch_size: 32
+  target_emotions: ["anger", "disgust", "fear", "joy", "neutral", "sadness", "surprise"]
+  min_sentence_len: 5 # Skip sentences with fewer than 5 characters
+  max_sentences_per_book: 20 # Only analyze first 20 sentences for performance
+  detection_threshold: 0.15 # Score above this required to set a dominant tone
+
+mlflow:
+  uri: https://dagshub.com/SebastianGarrido2790/hybrid-book-recommender.mlflow  # Replace with your own MLflow tracking URI
+  experiment_name: Hybrid-Book-Recommender-System  # Replace with your own experiment name
+
+app:
+  max_results: 48
+  categories:
+    - "All"
+    - "Biography"
+    - "Fantasy"
+    - "Fiction"
+    - "History"
+    - "Non-Fiction"
+    - "Science"
+    - "Thriller"
+  tones:
+    - "All"
+    - "Happy"
+    - "Surprising"
+    - "Angry"
+    - "Suspenseful"
+    - "Sad"
+  tone_map:
+    Happy: "joy"
+    Surprising: "surprise"
+    Angry: "anger"
+    Suspenseful: "fear"
+    Sad: "sadness"
+
+agent:
+  model_name: gemini-flash-latest
+  temperature: 0.7
+  max_results_per_search: 5

@@ -1,0 +1,35 @@
+# Git
+.git
+.gitignore
+
+# Python / UV / Venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+venv
+env
+.python-version
+
+# Environment Variables (Secrets)
+.env
+
+# IDE
+.vscode
+.idea
+
+# Logs & History
+logs/
+mlruns/
+.pytest_cache/
+
+# Test Artifacts
+test_db_dir/
+test_data.csv
+
+# Large/Unneeded DVC internals (Optional: Keep if you plan to run dvc pull inside)
+# .dvc/cache
+
+# Report outputs (Optional)
+reports/

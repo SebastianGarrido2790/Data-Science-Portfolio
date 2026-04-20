@@ -1,0 +1,46 @@
+services:
+  # ---------------------------------------------------------------------------
+  # THE BRAWN: Deterministic Model Serving (FastAPI FTI Engine)
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - nyc-taxi-net
+
+  # ---------------------------------------------------------------------------
+  # THE BRAIN: Agentic Chat UI (LangGraph + Gemini-2.5-flash)
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000
+      # Required for the Agentic Taxi Analyst to orchestrate the ReAct workflow
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - nyc-taxi-net
+
+networks:
+  nyc-taxi-net:
+    driver: bridge

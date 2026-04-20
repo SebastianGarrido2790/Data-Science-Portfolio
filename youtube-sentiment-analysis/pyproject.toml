@@ -1,0 +1,91 @@
+[project]
+name = "youtube-sentiment-mlops"
+version = "0.1.0"
+description = "End-to-end MLOps pipeline for real-time YouTube sentiment analysis"
+authors = [{name = "Sebastian Garrido", email = "sebastiangarrido2790@gmail.com"}]
+dependencies = [
+    "pandas>=2.0",
+    "python-dotenv>=1.0",
+    "scikit-learn>=1.3",
+    "nltk>=3.8",
+    "mlflow>=2.8",
+    "dvc>=3.0",
+    "boto3>=1.28", # AWS integration
+    "requests>=2.31", # API calls (e.g., YouTube)
+    "seaborn>=0.13.2",
+    "wordcloud>=1.9.4",
+    "torch>=2.0", # For efficient inference
+    "imbalanced-learn>=0.12.0",
+    "optuna>=3.6",
+    "xgboost>=2.0",
+    "lightgbm>=4.3",
+    "transformers>=4.40",
+    "datasets>=2.20", # For BERT data loading # For distributed training
+    "accelerate>=0.30",
+    "sentencepiece>=0.2.0",
+    "pydantic>=2.0",
+    "fastapi>=0.100",
+    "uvicorn>=0.20",
+    "httpx>=0.27",
+    "great-expectations>=1.15.2",
+    "json-log-formatter>=1.1.1",
+    "pydantic-ai>=0.0.50",
+    "google-genai>=1.0",
+]
+requires-python = ">=3.10, <3.13"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "pytest-asyncio>=0.23",
+    "pyright>=1.1.350",
+    "ruff>=0.1.0",
+    "pre-commit>=4.0",
+    "jupyter==1.0.0",
+    "ipykernel>=6.30.1",
+    "pandas-stubs",
+    "types-requests",
+    "types-PyYAML",
+    "boto3-stubs[essential]",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+exclude = ["notebooks"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "--cov=src --cov-report=term-missing"
+asyncio_mode = "auto"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "N", "W", "B", "SIM", "C4", "RUF"]
+ignore = ["N803", "N806"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "app"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/conftest.py" = ["E402"]
+"src/pipeline/*.py" = ["N806"]
+"src/components/*.py" = ["N806"]
+"src/api/*.py" = ["N806"]
+"src/tools/*.py" = ["N806"]
+"src/agents/*.py" = ["N806"]
+"tests/test_agent_tools.py" = ["PLC2701"]
+
+[tool.pyright]
+pythonVersion = "3.11"
+include = ["src"]
+exclude = ["notebooks"]
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "standard"
+reportPrivateImportUsage = "none"
+reportOptionalMemberAccess = "none"
+reportAttributeAccessIssue = "warning"
+reportOptionalCall = "none"
+reportArgumentType = "warning"

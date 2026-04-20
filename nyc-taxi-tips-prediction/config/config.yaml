@@ -1,0 +1,42 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_data_path: data/raw/Distilled_2023_Yellow_Taxi_Trip_Data.txt
+  taxi_zones_path: data/external/NYC_Taxi_Zones_20260215.csv
+  output_data_path: artifacts/data_ingestion/enriched_trip_data.parquet
+
+data_validation:
+  root_dir: artifacts/data_validation
+  unzip_dir: artifacts/data_ingestion/enriched_trip_data.parquet
+  STATUS_FILE: artifacts/data_validation/status.txt
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion/enriched_trip_data.parquet
+
+feature_engineering:
+  root_dir: artifacts/feature_engineering
+  data_path: artifacts/data_transformation/cleaned_trip_data.parquet
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  train_data_path: artifacts/feature_engineering/train.parquet
+  val_data_path: artifacts/feature_engineering/val.parquet
+  model_name: model.joblib
+
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  test_data_path: artifacts/feature_engineering/test.parquet
+  model_path: artifacts/model_trainer/model.joblib
+  metric_file_name: artifacts/model_evaluation/metrics.json
+
+predict_model:
+  root_dir: artifacts/predictions
+  output_filename: inference_results.csv
+
+fare_constants:
+  extra: 0.0
+  mta_tax: 0.5
+  improvement_surcharge: 0.3
+  base_fare: 3.70

@@ -1,0 +1,30 @@
+repos:
+  # ── Ruff: Linting + Import Sorting ─────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.6
+    hooks:
+      - id: ruff
+        args: [--fix]
+        name: "Ruff: lint & auto-fix"
+      - id: ruff-format
+        name: "Ruff: format"
+
+  # ── Pyright: Strict Type Checking ──────────────────────────────────────────
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.408
+    hooks:
+      - id: pyright
+        name: "Pyright: strict type checking"
+        additional_dependencies: [pydantic>=2.4.0, pydantic-settings>=2.0.0]
+
+  # ── General File Hygiene ────────────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: detect-private-key
