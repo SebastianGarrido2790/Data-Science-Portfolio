@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/sebas/Documents/Data_Science/Portfolio/Data-Science-Portfolio/12_Employee_Attrition/src/features/mlruns/466656167999582602/fc33697a39ef45daa1bdc1dacc2b845d/artifacts
+end_time: 1747321327146
+entry_point_name: ''
+experiment_id: '466656167999582602'
+lifecycle_stage: active
+run_id: fc33697a39ef45daa1bdc1dacc2b845d
+run_name: XGBoost
+run_uuid: fc33697a39ef45daa1bdc1dacc2b845d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747320406461
+status: 3
+tags: []
+user_id: sebas

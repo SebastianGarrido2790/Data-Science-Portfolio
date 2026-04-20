@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1747320404795
+current_stage: None
+description: null
+last_updated_timestamp: 1747320404795
+name: RandomForest
+run_id: 743c577ee62c4230805b007e879232de
+run_link: null
+source: file:///c:/Users/sebas/Documents/Data_Science/Portfolio/Data-Science-Portfolio/12_Employee_Attrition/src/features/mlruns/466656167999582602/743c577ee62c4230805b007e879232de/artifacts/model_RandomForest
+status: READY
+status_message: null
+storage_location: file:///c:/Users/sebas/Documents/Data_Science/Portfolio/Data-Science-Portfolio/12_Employee_Attrition/src/features/mlruns/466656167999582602/743c577ee62c4230805b007e879232de/artifacts/model_RandomForest
+user_id: null
+version: 2

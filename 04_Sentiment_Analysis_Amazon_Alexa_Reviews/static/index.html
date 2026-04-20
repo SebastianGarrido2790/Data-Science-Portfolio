@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis</title>
+    <style>
+        body { text-align: center; margin-top: 50px; }
+        input { padding: 5px; }
+        input[type="submit"] { background: #4CAF50; color: white; border: none; padding: 5px 10px; }
+        .result { margin-top: 20px; font-weight: bold; }
+        .error { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis</h1>
+    <p>Enter a review to get its sentiment analysis using DistilBERT.</p>
+    <form method="POST" action="/predict">
+        <input type="text" name="review" placeholder="Enter review" required>
+        <input type="submit" value="Predict">
+    </form>
+    {% if result %}
+        <div class="result">
+            Sentiment: {{ result.sentiment }}<br>
+            Confidence: {{ result.confidence | round(2) }}
+        </div>
+    {% endif %}
+    {% if error %}
+        <div class="error">Error: {{ error }}</div>
+    {% endif %}
+</body>
+</html>

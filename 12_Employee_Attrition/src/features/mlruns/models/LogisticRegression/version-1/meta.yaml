@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1747281206312
+current_stage: None
+description: null
+last_updated_timestamp: 1747281206312
+name: LogisticRegression
+run_id: b6fd7d78402f40a9b6d95f29246f88bc
+run_link: null
+source: file:///c:/Users/sebas/Documents/Data_Science/Portfolio/Data-Science-Portfolio/12_Employee_Attrition/src/features/mlruns/466656167999582602/b6fd7d78402f40a9b6d95f29246f88bc/artifacts/model_LogisticRegression
+status: READY
+status_message: null
+storage_location: file:///c:/Users/sebas/Documents/Data_Science/Portfolio/Data-Science-Portfolio/12_Employee_Attrition/src/features/mlruns/466656167999582602/b6fd7d78402f40a9b6d95f29246f88bc/artifacts/model_LogisticRegression
+user_id: null
+version: 1

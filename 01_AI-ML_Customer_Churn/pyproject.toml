@@ -1,0 +1,30 @@
+[project]
+     name = "churn-project"
+     version = "0.1.0"
+     requires-python = ">=3.11.9,<3.12"
+
+     [tool.uv]
+     dev-dependencies = [
+         "pandas",
+         "numpy",
+         "matplotlib",
+         "scikit-learn",
+         "xgboost",
+         "pyyaml",
+         "joblib",
+         "jupyter",
+         "jupyterlab",
+         "ipywidgets",
+         "notebook",
+         "ipython",
+         "seaborn",
+         "scipy",
+         "statsmodels",
+         "mlflow",
+         "sentence-transformers",
+         "transformers",
+         "openai",
+         "python-dotenv",
+         "pydantic-settings",
+         "tenacity",
+     ]

@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/sebas/Documents/Data_Science/Portfolio/Data-Science-Portfolio/12_Employee_Attrition/src/features/mlruns/466656167999582602/b6fd7d78402f40a9b6d95f29246f88bc/artifacts
+end_time: 1747281206469
+entry_point_name: ''
+experiment_id: '466656167999582602'
+lifecycle_stage: active
+run_id: b6fd7d78402f40a9b6d95f29246f88bc
+run_name: LogisticRegression
+run_uuid: b6fd7d78402f40a9b6d95f29246f88bc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747281110115
+status: 3
+tags: []
+user_id: sebas

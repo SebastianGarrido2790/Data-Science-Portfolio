@@ -1,0 +1,16 @@
+FROM python:3.9
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y build-essential
+RUN pip install uv
+
+COPY pyproject.toml uv.lock .
+RUN uv sync
+
+COPY app.py .
+COPY index.html .
+COPY models/scaler.pkl /app/models/scaler.pkl
+COPY data/processed/X_train.csv /app/data/processed/X_train.csv
+
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
